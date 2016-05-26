@@ -15,7 +15,8 @@ namespace Tower_Defense_Project
     /// </summary>
     public class Main : Game
     {
-        List<Vector2> listT = new List<Vector2>(), listO = new List<Vector2>(), listL = new List<Vector2>();
+        List<Vector2> listT = new List<Vector2>(), listO = new List<Vector2>(), listL = new List<Vector2>(), points = new List<Vector2>();
+        Polygon triangle;
         RectangleF oldBag = new RectangleF(50, 50, 25, 25);
         SpriteBatch spriteBatch;
         Texture2D tex;
@@ -111,6 +112,11 @@ namespace Tower_Defense_Project
             listL.Add(new Vector2(60, 25));
             listL.Add(new Vector2(85, 100));
             listL.Add(new Vector2(160, 100));
+
+            points.Add(new Vector2(250, 240));
+            points.Add(new Vector2(200, 280));
+            points.Add(new Vector2(300, 280));
+            triangle = new Polygon(points);
         }
 
         /// <summary>
@@ -146,6 +152,8 @@ namespace Tower_Defense_Project
             spriteBatch.Begin(SpriteSortMode.Deferred, graphics.GraphicsDevice.BlendStates.NonPremultiplied);
 
             Window.AllowUserResizing = false;
+
+            triangle.Draw(spriteBatch);
 
             spriteBatch.Draw(tex, oldBag, Color.Red);
 
