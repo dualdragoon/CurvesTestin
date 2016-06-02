@@ -103,12 +103,12 @@ namespace Tower_Defense_Project
             listT.Add(new Vector2(75, 100));
             listT.Add(new Vector2(150, 100));
 
-            listO.Add(Vector2.Zero);
+            listO.Add(new Vector2(-10, 0));
             listO.Add(new Vector2(40, 25));
             listO.Add(new Vector2(65, 100));
             listO.Add(new Vector2(140, 100));
 
-            listL.Add(Vector2.Zero);
+            listL.Add(new Vector2(10, 0));
             listL.Add(new Vector2(60, 25));
             listL.Add(new Vector2(85, 100));
             listL.Add(new Vector2(160, 100));

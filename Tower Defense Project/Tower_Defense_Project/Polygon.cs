@@ -26,22 +26,26 @@ namespace Tower_Defense_Project
         {
             foreach (Vector2 i in Points)
             {
-                Vector2 shortestDistance = Vector2.Zero;
-                float distance = float.MaxValue;
-
-                for (int l = 0; l < Points.Count; l++)
+                if (!TwoLines(i))
                 {
-                    if (Points[l] != i && !SideExists(i, Points[l]))
+                    Vector2 shortestDistance = Vector2.Zero;
+                    float distance = float.MaxValue;
+
+                    for (int l = 0; l < Points.Count; l++)
                     {
-                        if (Vector2.Distance(i, Points[l]) < distance)
+                        if (Points[l] != i && !SideExists(i, Points[l]))
                         {
-                            shortestDistance = Points[l];
-                            distance = Vector2.Distance(i, Points[l]);
+                            if (Vector2.Distance(i, Points[l]) < distance)
+                            {
+                                shortestDistance = Points[l];
+                                distance = Vector2.Distance(i, Points[l]);
+                            }
                         }
                     }
+                    Sides.Add(new Vector2[2] { i, shortestDistance }); 
                 }
-                Sides.Add(new Vector2[2] { i, shortestDistance });
             }
+            if (!PolygonComplete()) CreateSides();
         }
 
         private bool SideExists(Vector2 a, Vector2 b)
@@ -51,6 +55,26 @@ namespace Tower_Defense_Project
                 if (i.Contains(a) && i.Contains(b)) return true;
             }
             return false;
+        }
+
+        private bool TwoLines(Vector2 point)
+        {
+            int l = 0;
+            for (int i = 0; i < Sides.Count; i++)
+            {
+                if (Sides[i].Contains(point)) l++;
+            }
+            if (l == 2) return true;
+            return false;
+        }
+
+        private bool PolygonComplete()
+        {
+            foreach (Vector2 i in Points)
+            {
+                if (!TwoLines(i)) return false;
+            }
+            return true;
         }
 
         private void DrawLine(SpriteBatch spriteBatch, Vector2 begin, Vector2 end, int width = 1)
